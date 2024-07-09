@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - /home/user/myapp/app_files:/var/www/html
+      - /home/user/myapp/mysql_data:/var/lib/mysql
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - /home/user/myapp/mysql_data:/var/lib/mysql
