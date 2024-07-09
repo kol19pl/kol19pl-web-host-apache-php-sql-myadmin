@@ -21,6 +21,9 @@ RUN service mysql start && \
 # Configure PHPMyAdmin to work with Apache
 RUN echo "Include /etc/phpmyadmin/apache.conf" >> /etc/apache2/apache2.conf
 
+# Set ServerName directive
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Enable Apache modules and configure permissions
 RUN a2enmod rewrite
 RUN chown -R www-data:www-data /var/www/html/
@@ -31,4 +34,4 @@ EXPOSE 80
 EXPOSE 3306
 
 # Start Apache and MySQL services
-CMD service apache2 start && service mysql start && tail -f /dev/null
+CMD service apache2 start && mysqld_safe && tail -f /dev/null
